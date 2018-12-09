@@ -3,8 +3,8 @@ PRACTICE Exam 1, problem 2.
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Valerie Galluzzi, Mark Hays, Amanda Stouder, Aaron Wilkin,
-         their colleagues, and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues, and Shengjun Guan.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -80,11 +80,7 @@ def problem2a(circle, rectangle, window):
     
     What comes in:
       -- An rg.Circle.
-      -- An rg.Rectangle.
-      -- An rg.RoseWindow.
-    What goes out:  Nothing (i.e., None).
-    Side effects:
-      -- Draws the given rg.Circle and rg.Rectangle
+      -- An rg.Rectangle.ws the given rg.Circle and rg.Rectangle
            on the given rg.RoseWindow,
            then waits for the user to click the window.
       -- Then draws an rg.Line from the upper-right corner
@@ -103,14 +99,33 @@ def problem2a(circle, rectangle, window):
       :type window:    rg.RoseWindow
     """
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #          Tests have been written for you (above).
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
     # DIFFICULTY AND TIME RATINGS (see top of this file for explanation)
     #    DIFFICULTY:      6
     #    TIME ESTIMATE:   10 to 15 minutes.
-    # -------------------------------------------------------------------------
+    # ----------------
+    #       -- An rg.RoseWindow.
+    #     What goes out:  Nothing (i.e., None).
+    #     Side effects:
+    #       -- Dra---------------------------------------------------------
+    circle.attach_to(window)
+    rectangle.attach_to(window)
+    window.render()
+    window.continue_on_mouse_click()
+    line = rg.Line(rg.Point(rectangle.get_center().x + rectangle.get_width()/2,rectangle.get_center().y - rectangle.get_height()/2)
+            , rg.Point(rectangle.get_center().x - rectangle.get_width()/2,rectangle.get_center().y + rectangle.get_height()/2))
+    line.arrow = 'last'
+    line.attach_to(window)
+    window.render()
+    window.continue_on_mouse_click()
+    circle.fill_color = rectangle.outline_color
+    circle.attach_to(window)
+    window.render()
+
+
 
 def run_test_problem2b():
     """ Tests the  problem2b   function. """
@@ -174,7 +189,7 @@ def problem2b(rect, n, delta, win):
       :type win:    rg.RoseWindow
     """
     # -------------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #          Tests have been written for you (above).
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
@@ -182,7 +197,15 @@ def problem2b(rect, n, delta, win):
     #    DIFFICULTY:      7
     #    TIME ESTIMATE:   15 to 25 minutes.
     # -------------------------------------------------------------------------
-
+    rect.attach_to(win)
+    x1 , y1 = rect.get_center().x + rect.get_width()/2 , rect.get_center().y - rect.get_height()/2
+    x2 , y2 = rect.get_center().x - rect.get_width()/2 , rect.get_center().y + rect.get_height()/2
+    for i in range(n-1):
+        x1 , y1 = x1 + delta, y1 - delta
+        x2 , y2 = x2 - delta, y2 + delta
+        rectangle = rg.Rectangle(rg.Point(x1,y1),rg.Point(x2,y2))
+        rectangle.attach_to(win)
+        win.render()
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
